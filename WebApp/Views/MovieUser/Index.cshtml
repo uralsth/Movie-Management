@@ -1,0 +1,51 @@
+﻿@using MovieManagement.Models;
+@model IEnumerable<MovieItemModel>
+
+<div class="mb-4 d-flex flex-row justify-content-between">
+    <div style="width:30%">
+        <h1>All Movies</h1>
+    </div>
+    <div style="width:50%;">
+        <form asp-controller="MovieUser" asp-action="Index" method="get" class="flex-md-row-reverse">
+            <button type="submit" class="btn btn-sm btn-light" id="search">Search</button>
+            <input class="form-control me-2" style="width: 60%" type="text" name="searchKeyword" value="@ViewData["searchkeyword"]" id="search" required />
+        </form>
+    </div>
+</div>
+
+<hr class="w-100 hr-light">
+<div class="row" style="margin-top:50px">
+    @if (Model != null)
+        @foreach (var movie in Model)
+        {
+            <div class="col-3 mb-4">
+                <div class="card">
+                    <a style="text-decoration:none;" asp-controller="MovieUser" asp-action="details" asp-route-id="@movie.MovieID">
+
+                        <img src="@movie.ImagePath" class="card-img-top mx-auto d-block" alt="..." style="height: 320px; width: 260px; max-height:320px">
+                        <div class="card-body">
+                            <h5 class="card-title">@movie.MovieName</h5>
+                            <p class="card-text">
+                                <span>Genre :</span>
+                                @foreach (var genre in movie.MovieGenres)
+                                {
+
+                                    @if (movie.MovieGenres.Length == 1 || @genre == movie.MovieGenres.First())
+                                    {
+                                        <text>@genre</text>
+                                    }
+                                    else
+                                    {
+                                        <text>, @genre</text>
+                                    }
+                                }
+                            </p>
+                            <p class="card-text"><span>Release Date : </span>@movie.ReleaseDate.ToShortDateString()</p>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
+
+</div>

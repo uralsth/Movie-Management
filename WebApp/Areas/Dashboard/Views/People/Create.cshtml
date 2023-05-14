@@ -1,0 +1,57 @@
+﻿@using MovieManagement.Models;
+@model PeopleViewModel
+@{
+    List<RoleItemModel> roles = ViewBag.RoleList as List<RoleItemModel>;
+}
+<form asp-controller="People" asp-action="Create" enctype="multipart/form-data" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="PeopleID" />
+        <label asp-for="PeopleName" class="form-label"></label>
+        <input asp-for="PeopleName" class="form-control">
+        <span asp-validation-for="PeopleName" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="Gender" class="form-label"></label>
+        <input asp-for="Gender" type="text" class="form-control">
+        <span asp-validation-for="Gender" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="DateOfBirth" class="form-label"></label>
+        <input asp-for="DateOfBirth" type="date" class="form-control">
+        <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="form-label">Image</label>
+        <input accept="image/jpeg,image/png" asp-for="FormFile" type="file" class="form-control">
+        <input asp-for="ImagePath" type="hidden" class="form-control">
+        <span asp-validation-for="ImagePath" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Roles</label>
+
+        <ul>
+            @foreach (var role in roles)
+            {
+                string checkboxID = "chkRole" + role.RoleID;
+                string isChecked = (Model.RoleIDs!=null && Model.RoleIDs.Contains(role.RoleID)) ? "checked" : "";
+                <li>
+                    <input class="chkBx" type="checkbox" id="@checkboxID" value="@role.RoleID" name="RoleIDs" @isChecked>
+                    <label for="@checkboxID">@role.RoleName</label>
+                </li>
+            }
+        </ul>
+        <span class="text-danger field-validation-valid" asp-validation-for="RoleIDs"></span>
+    </div>
+    <div class="form-group mb-5">
+        @if (!string.IsNullOrEmpty(Model.ImagePath))
+        {
+            <img style="width:200px" src="@Model.ImagePath" class="img-thumbnail">
+        }
+    </div>
+    <div class="form-group mt-2">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-warning">Reset</button>
+        <a asp-action="index" class="btn btn-dark">Back</a>
+    </div>
+</form>
+@await Html.PartialAsync("_ValidationScriptsPartial")

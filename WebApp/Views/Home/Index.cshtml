@@ -1,0 +1,33 @@
+﻿@model HomePageViewModel;
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+@await Component.InvokeAsync("OurTeam",new {Limit=4})
+
+<h3 style="text-align:center;" >Shop With Us</h3>
+@await Component.InvokeAsync("Products",new{Limit=3})
+<h3>Popular Albums</h3>
+@await Component.InvokeAsync("Music", new {Limit=4, AlbumToSearch = ""})
+
+<h3>
+    Our Company
+</h3>
+@await Component.InvokeAsync("Employee", new {Limit = 100})
+<h3>
+   From Gallery 10
+</h3>
+@await Component.InvokeAsync("Ads", new {Limit = 10})
+<h3>
+    Now Showing Movie
+</h3>
+@await Component.InvokeAsync("Movie", new {Limit=4, PlatformName="Cinemas"})
+<h3>
+    Newsletter
+</h3>
+@await Component.InvokeAsync("Subscriber", new {Limit=4})
+
+<h3>
+    Image Gallery
+</h3>
+@await Component.InvokeAsync("ImageGallery", new {Limit=4})

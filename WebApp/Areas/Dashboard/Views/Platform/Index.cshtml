@@ -1,0 +1,33 @@
+﻿@model IEnumerable<MovieManagement.Models.PlatformItemModel>;
+<div class="">
+    <h1>Platform Management</h1>
+    <a asp-action="create" class="btn btn-primary mt-1">Add Role</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Added On</th>
+            <th scope="col">Added By</th>
+            <th scope="col">Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.PlatformName</td>
+                <td>@item.AddedOn</td>
+                <td>@item.AddedBy</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-action="edit" asp-route-id="@item.PlatformID">Edit</a>
+                    <form style="display:inline-block" method="get" asp-action="delete">
+                        <button type="submit" class="btn btn-sm btn-danger" asp-action="delete" onclick="return confirm('Are you sure')" asp-route-id="@item.PlatformID">Delete</button>
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

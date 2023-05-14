@@ -1,0 +1,18 @@
+﻿@using MovieManagement.Models;
+@model PlatformViewModel
+
+
+<form asp-controller="Platform" asp-action="Create" method="post">
+    <div class="form-group">
+        <input type="hidden" asp-for="PlatformID" />
+        <label asp-for="PlatformName" class="form-label"></label>
+        <input asp-for="PlatformName" class="form-control">
+        <span asp-validation-for="PlatformName" class="text-danger"></span>
+    </div>
+    <div class="form-group mt-2">
+        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="reset" class="btn btn-warning">Reset</button>
+        <a asp-action="index" class="btn btn-dark">Back</a>
+    </div>
+</form>
+@await Html.PartialAsync("_ValidationScriptsPartial")

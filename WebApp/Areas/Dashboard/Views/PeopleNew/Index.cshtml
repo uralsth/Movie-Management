@@ -1,0 +1,97 @@
+﻿@using MovieManagement.Models;
+@model PeopleViewModel
+@{
+    List<RoleItemModel> roles = ViewBag.NewRoleList as List<RoleItemModel>;
+}
+
+<div id="PeopleModule">
+    <div id="PeopleGrid" class="container">
+        <div class="mb-2">
+            <h1>People Management</h1>
+            @*<button type="button" enctype="multipart/form-data" method="post">
+            <input type="text" name="searchkeyword" id="search" required />
+
+
+            <button type="button" asp-action="search" asp-for="search" id="search">Search on Product</button>
+            <button type="submit" asp-action="listcategorywise" asp-for="search">Search on Product or Category</button>
+
+
+            </button>
+            *@
+            <button id="btnAddPeople" type="button" class="btn btn-primary mt-1">Add People</button>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">DateOfBirth</th>
+                    <th scope="col">Added On</th>
+                    <th scope="col">Added By</th>
+                    <th scope="col">Action</th>
+
+                </tr>
+            </thead>
+            <tbody id="tblBodyPeople">
+            </tbody>
+        </table>
+    </div>
+    <div id="PeopleForm" style="display:none;" class="container">
+
+        <form enctype="multipart/form-data">
+            <div class="form-group">
+                <input type="hidden" />
+                <label asp-for="PeopleName" class="form-label"></label>
+                <input asp-for="PeopleName" class="form-control">
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="form-label"></label>
+                <input asp-for="Gender" type="text" class="form-control">
+            </div>
+            <div class="form-group">
+                <label asp-for="DateOfBirth" class="form-label"></label>
+                <input asp-for="DateOfBirth" type="date" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="form-label">Image</label>
+                <input accept="image/jpeg,image/png" asp-for="FormFile" type="file" class="form-control">
+                <input asp-for="ImagePath" type="hidden" class="form-control">
+            </div>
+            <div class="form-group">
+                <label class="control-label">Roles</label>
+
+                <ul>
+                    @foreach (var role in roles)
+                    {
+                        string checkboxID = "chkRole" + role.RoleID;
+                        string isChecked = (Model.RoleIDs != null && Model.RoleIDs.Contains(role.RoleID)) ? "checked" : "";
+                        <li>
+                            <input class="chkBx" type="checkbox" id="@checkboxID" value="@role.RoleID" name="RoleIDs" @isChecked>
+                            <label for="@checkboxID">@role.RoleName</label>
+                        </li>
+                    }
+                </ul>
+            </div>
+            <span class="text-danger field-validation-valid" asp-validation-for="RoleIDs"></span>
+            <div class="form-group mb-5">
+                @if (!string.IsNullOrEmpty(Model.ImagePath))
+                {
+                    <img style="width:200px" src="@Model.ImagePath" class="img-thumbnail">
+                }
+            </div>
+            <div class="form-group">
+                <button type="button" id="btnSavePeople" class="btn btn-primary">Save</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+                <button id="btnBackToGrid" type="button" class="btn btn-dark">Back</button>
+            </div>
+        </form>
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    </div>
+</div>
+<script src="/dashboard//js/PeopleManager.js"></script>
+<script>
+    $(function () {
+        $('PeopleModule').ManagePeople();
+    })
+</script>

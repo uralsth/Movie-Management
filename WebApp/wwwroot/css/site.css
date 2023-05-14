@@ -1,0 +1,47 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.p-y-2 {
+    padding-top: 28px;
+    padding-bottom: 28px;
+}
+
+.p-y-3 {
+    padding-top: 45px;
+    padding-bottom: 45px;
+}
+
+.m-b-1 {
+    margin-bottom: 18px;
+}
+
+.m-t-1 {
+    margin-top: 18px;
+}
+
+.main_counter_area {
+    background-size: cover;
+    overflow: hidden;
+}
+
+    .main_counter_area .main_counter_content .single_counter {
+        background: #000000;
+        color: #fff;
+    }
+
+        .main_counter_area .main_counter_content .single_counter i {
+            font-size: 36px;
+        }
+
+.m-t-6 {
+    margin-top: 3.0rem !important;
+}
+
+

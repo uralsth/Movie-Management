@@ -1,0 +1,49 @@
+﻿@model IEnumerable<MovieManagement.Models.PeopleItemModel>;
+<div class="">
+    <h1>People Management</h1>
+@*    <form asp-controller="People" asp-action="search" enctype="multipart/form-data" method="post">
+        <input type="text" name="search" id="search" required />
+
+
+        <button type="submit" asp-action="search" asp-for="search" id="search">Search on Product</button>
+        <button type="submit" asp-action="listcategorywise" asp-for="search">Search on Product or Category</button>
+
+
+    </form>
+*@    
+    <a asp-action="create" class="btn btn-primary mt-1">Add People</a>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col"> Gender</th>
+            <th scope="col">Date Of Birth</th>
+            <th scope="col">Added On</th>
+            <th scope="col">Added By</th>
+            <th scope="col">Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img style="width:150px;" src="@item.ImagePath" class="img-thumbnail"></td>
+                <td>@item.PeopleName</td>
+                <td>@item.Gender</td>
+                <td>@item.DateOfBirth</td>
+                <td>@item.AddedOn</td>
+                <td>@item.AddedBy</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-action="edit" asp-route-id="@item.PeopleID">Edit</a>
+                    <form style="display:inline-block" method="get" asp-action="delete">
+                        <button type="submit" class="btn btn-sm btn-danger" asp-action="delete" onclick="return confirm('Are you sure')" asp-route-id="@item.PeopleID">Delete</button>
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

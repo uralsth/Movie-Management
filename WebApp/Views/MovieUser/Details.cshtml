@@ -1,0 +1,121 @@
+﻿@using MovieManagement.Models;
+@model MovieItemModel
+@{
+    string youtubeEmbedLink = "https://www.youtube.com/embed/";
+    string ytsrc = youtubeEmbedLink + Model.TrailerLink;
+}
+<div class="d-flex vh-100 mt-4">
+    <div class="h-100 d-flex flex-column">
+        <div class="h-50">
+            <img src="@Model.ImagePath" class="h-100" style="width: 250px">
+        </div>
+
+        <div class="h-25">
+            <div class="card mt-4" style="width: 250px;">
+                <div class="card-header">
+                    Where to Watch? <button type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#trailerModal"><i class="fa fa-play"></i> Trailer</button>
+                </div>
+                <ul class="list-group list-group-flush">
+                    @foreach (var platform in Model.MoviePlatforms)
+                    {
+                        <li class="list-group-item">@platform</li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade h-75" id="trailerModal" tabindex="-1" role="dialog" aria-labelledby="trailerModalLabel" aria-hidden="true">
+        <div class="modal-dialog h-100" role="document">
+            <div class="modal-content modal-content-custom embed-responsive embed-responsive-16by9 h-75">
+                <iframe class="embed-responsive-item h-100" src=@ytsrc allowfullscreen></iframe>
+            </div>
+        </div>
+    </div>
+    <div style="margin-left:20px" class="d-flex flex-column w-50 h-100">
+        <div class="h-50">
+            <h5>@Model.MovieName</h5>
+            <h6 class="text-muted">
+                <a href="#">@Model.ReleaseDate.Year</a> Directed by <a href="#">
+                    @foreach (var director in Model.MovieDirectors)
+                    {
+                        <span>@director</span>
+                    }
+                </a>
+            </h6>
+            <p>@Model.PlotSummary</p>
+            <hr class="w-100 my-2 hr-light">
+
+            <p class="card-text">
+                <span>Directors :</span>
+                @foreach (var director in Model.MovieDirectors)
+                {
+
+                    @if (Model.MovieDirectors.Length == 1 || @director == Model.MovieDirectors.First())
+                    {
+                        <text>@director</text>
+                    }
+                    else
+                    {
+                        <text>, @director</text>
+                    }
+                }
+            </p>
+            <hr class="w-100 my-2 hr-light">
+
+            <p class="card-text">
+                <span>Writers :</span>
+                @foreach (var writer in Model.MovieScreenwriters)
+                {
+
+                    @if (Model.MovieScreenwriters.Length == 1 || writer == Model.MovieScreenwriters.First())
+                    {
+                        <text>@writer</text>
+                    }
+                    else
+                    {
+                        <text>, @writer</text>
+                    }
+                }
+            </p>
+            <hr class="w-100 my-2 hr-light">
+
+            <p class="card-text">
+                <span>Actor :</span>
+                @foreach (var actor in Model.MovieActors)
+                {
+
+                    @if (Model.MovieActors.Length == 1 || actor == Model.MovieActors.First())
+                    {
+                        <text>@actor</text>
+                    }
+                    else
+                    {
+                        <text>, @actor</text>
+                    }
+                }
+            </p>
+            <hr class="w-100 my-2 hr-light">
+
+            <p class="card-text">
+                <span>Genre :</span>
+                @foreach (var genre in Model.MovieGenres)
+                {
+
+                    @if (Model.MovieGenres.Length == 1 || @genre == Model.MovieGenres.First())
+                    {
+                        <text>@genre</text>
+                    }
+                    else
+                    {
+                        <text>, @genre</text>
+                    }
+                }
+            </p>
+            <hr class="w-100 my-2 hr-light">
+
+            <p class="card-text"><span>Release Date :</span> @Model.ReleaseDate.ToShortDateString()</p>
+            <hr class="w-100 my-2 hr-light">
+        </div>
+    </div>
+</div>

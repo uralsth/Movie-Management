@@ -1,0 +1,45 @@
+﻿@model IEnumerable<MovieManagement.Models.MovieItemModel>;
+<div class="">
+    <div class="mb-2">
+        <h3>Movie Management</h3>
+        <a asp-action="create" class="btn btn-primary mt-1" style="float:right;">Add Movie</a>
+    </div>
+    <form asp-controller="Movie" asp-action="index" method="get">
+        <input type="text" name="searchKeyword" value="@ViewData["searchkeyword"]" id="search" required />
+        <button type="submit" class="btn btn-sm btn-light" id="search">Search</button>
+        <a asp-action="index"  class="btn btn-sm btn-light" id="search">Reset</a>
+    </form>
+
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th scope="col"> #</th>*@
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Added On</th>
+            <th scope="col">Added By</th>
+            <th scope="col">Action</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var movie in Model)
+        {
+            <tr>
+                @*<th scope="row">@item.RowNumber</th>*@
+                <td><img style="width:150px;" src="@movie.ImagePath" class="img-thumbnail"></td>
+                <td>@movie.MovieName</td>
+                <td>@movie.AddedOn</td>
+                <td>@movie.AddedBy</td>
+                <td>
+                    <a class="btn btn-primary btn-sm" asp-action="edit" asp-route-id="@movie.MovieID">Edit</a>
+                    <form style="display:inline-block" method="get" asp-action="Delete">
+                        <button type="submit" class="btn btn-sm btn-danger" asp-action="Delete" onclick="return confirm('Are you sure')" asp-route-id="@movie.MovieID">Delete</button>
+                    </form>
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>

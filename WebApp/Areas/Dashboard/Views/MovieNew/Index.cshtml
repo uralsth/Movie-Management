@@ -1,0 +1,175 @@
+﻿@using MovieManagement.Models
+@model MovieViewModel
+@{
+    List<GenreItemModel> genres = ViewBag.GenreList as List<GenreItemModel>;
+    List<PeopleItemModel> actors = ViewBag.ActorList as List<PeopleItemModel>;
+    List<PeopleItemModel> screenwriters = ViewBag.ScreenwriterList as List<PeopleItemModel>;
+    List<PeopleItemModel> directors = ViewBag.DirectorList as List<PeopleItemModel>;
+    List<PlatformItemModel> platforms = ViewBag.PlatformList as List<PlatformItemModel>;
+
+}
+<div id="MovieModule">
+    <div id="MovieGrid">
+        <div class="mb-2">
+            <h3>Movie Management</h3>
+            <button type="button" id="btnAddMovie" class="btn btn-primary mt-1" style="float:right;">Add Movie</button>
+        </div>
+        <form>
+            <input type="text" name="searchKeyword" id="txtSearchMovie" required />
+            <button type="button" class="btn btn-sm btn-light" id="btnSearchMovie">Search</button>
+            <button type="reset" class="btn btn-sm btn-light" id="reset">Reset</button>
+        </form>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Image</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Added On</th>
+                    <th scope="col">Added By</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tblBodyMovie">
+            </tbody>
+        </table>
+    </div>
+    <div id="MovieForm" style="display:none">
+        <form>
+            <div class="form-group">
+                <input type="hidden" id="hdnMovieID" />
+                <label asp-for="MovieName" class="form-label"></label>
+                <input id="txtMovieName" class="form-control">
+                <span asp-validation-for="MovieName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlotSummary" class="form-label"></label>
+                <input id="txtPlotSummary" type="text" class="form-control">
+                <span asp-validation-for="PlotSummary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="form-label">Image</label>
+                <input accept="image/jpeg,image/png" asp-for="FormFile" type="file" class="form-control">
+                <input id="txtImagePath" type="hidden" class="form-control">
+                <span asp-validation-for="ImagePath" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-5">
+                @if (!string.IsNullOrEmpty(Model.ImagePath))
+                {
+                    <img style="width:200px" src="@Model.ImagePath" class="img-thumbnail" \>
+                }
+            </div>
+            <div class="form-group">
+                <label class="control-label">Genres</label>
+                <ul class="list-group list-group-horizontal">
+                    @foreach (var genre in genres)
+                    {
+                        string checkboxID = "chkGenre" + genre.GenreID;
+                        string isChecked = (Model.GenreIDs != null && Model.GenreIDs.Contains(genre.GenreID)) ? "checked" : "";
+                        <li class="list-group-item">
+                            <input class="chkBx" type="checkbox" id="@checkboxID" value="@genre.GenreID" name="GenreIDs" @isChecked>
+                            <label for="@checkboxID">@genre.GenreName</label>
+                        </li>
+                    }
+                </ul>
+                <span class="text-danger field-validation-valid" asp-validation-for="GenreIDs"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Actor</label>
+                <ul class="list-group list-group-horizontal">
+                    @foreach (var actor in actors)
+                    {
+                        string checkboxID = "chkactor" + actor.PeopleID;
+                        string isChecked = (Model.ActorIDs != null && Model.ActorIDs.Contains(actor.PeopleID)) ? "checked" : "";
+                        <li>
+                            <input class="chkBx" type="checkbox" id="@checkboxID" value="@actor.PeopleID" name="ActorIDs" @isChecked>
+                            <label for="@checkboxID">@actor.PeopleName</label>
+                        </li>
+                    }
+                </ul>
+                <span class="text-danger field-validation-valid" asp-validation-for="ActorIDs"></span>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Director</label>
+                <ul style="list-style-type: none;">
+                    @foreach (var director in directors)
+                    {
+                        string checkboxID = "chkdirector" + director.PeopleID;
+                        string isChecked = (Model.DirectorIDs != null && Model.DirectorIDs.Contains(director.PeopleID)) ? "checked" : "";
+                        <li>
+                            <input class="chkBx" type="checkbox" id="@checkboxID" value="@director.PeopleID" name="DirectorIDs" @isChecked>
+                            <label for="@checkboxID">@director.PeopleName</label>
+                        </li>
+                    }
+                </ul>
+                <span class="text-danger field-validation-valid" asp-validation-for="DirectorIDs"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Screenwriter</label>
+                <ul style="list-style-type: none;">
+                    @foreach (var screenwriter in screenwriters)
+                    {
+                        string checkboxID = "chkscreenwriter" + screenwriter.PeopleID;
+                        string isChecked = (Model.ScreenwriterIDs != null && Model.ScreenwriterIDs.Contains(screenwriter.PeopleID)) ? "checked" : "";
+                        <li>
+                            <input class="chkBx" type="checkbox" id="@checkboxID" value="@screenwriter.PeopleID" name="ScreenwriterIDs" @isChecked>
+                            <label for="@checkboxID">@screenwriter.PeopleName</label>
+                        </li>
+                    }
+                </ul>
+                <span class="text-danger field-validation-valid" asp-validation-for="ScreenwriterIDs"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Platform</label>
+                <ul class="list-group list-group-horizontal">
+                    @foreach (var platform in platforms)
+                    {
+                        string checkboxID = "chkPlatform" + platform.PlatformID;
+                        string isChecked = (Model.PlatformIDs != null && Model.PlatformIDs.Contains(platform.PlatformID)) ? "checked" : "";
+                        <li class="list-group-item">
+                            <input class="chkBx" type="checkbox" id="@checkboxID" value="@platform.PlatformID" name="PlatformIDs" @isChecked>
+                            <label for="@checkboxID">@platform.PlatformName</label>
+                        </li>
+                    }
+                </ul>
+                <span class="text-danger field-validation-valid" asp-validation-for="PlatformIDs"></span>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleaseDate" class="form-label"></label>
+                <input id="txtReleaseDate" type="date" class="form-control">
+                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Runtime" class="form-label"></label>
+                <input id="txtRuntime" type="time" class="form-control">
+                <span asp-validation-for="Runtime" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Language" class="form-label"></label>
+                <input id="txtLanguage" type="text" class="form-control">
+                <span asp-validation-for="Language" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrailerLink" class="form-label"></label>
+                <input id="txtTrailerLink" type="text" class="form-control">
+                <span asp-validation-for="TrailerLink" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-2">
+                <button type="button" id="btnSaveMovie" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+                <button type="button" id="btnBackToGrid" class="btn btn-dark">Back</button>
+            </div>
+        </form>
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    </div>
+</div>
+
+<script src="/dashboard/js/MovieManager.js"></script>
+<script>
+    $(function () {
+        $('#MovieModule').ManageMovie();
+    });
+</script>

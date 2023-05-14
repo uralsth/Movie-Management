@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - WebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    @*<link rel="stylesheet" href="~/WebApp.styles.css" asp-append-version="true" />*@
+</head>
+
+<body>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/dashboard/js/common.js"></script>
+
+    <div class="d-flex flex-nowrap">
+        @await Html.PartialAsync("_dashboardSideMenu")
+        <main style="width:100%;" role="main">
+            <div>
+                <div class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                    <div class="container-fluid">
+                        <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Goto Website</a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                                aria-expanded="false" aria-label="Toggle navigation">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </div>
+                </div>
+                @{
+                    string? MessageType = TempData["MessageType"]?.ToString();
+                    if (!string.IsNullOrEmpty(MessageType))
+                    {
+                        <div class="p-3">
+                            <div class="alert alert-@MessageType alert-dismissible" role="alert">
+                                @TempData["SuccessMessage"]
+                                <button class="btn btn-sm btn-white close" data-dismiss="alert-dismissible" style="float:right">&times;</button>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="p-5">
+                @RenderBody()
+            </div>
+        </main>
+    </div>
+
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

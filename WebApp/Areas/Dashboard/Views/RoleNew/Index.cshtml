@@ -1,0 +1,52 @@
+﻿@using MovieManagement.Models;
+@model RoleViewModel
+<div id="RoleModule">
+    <div id="RoleGrid" class="container">
+        <div>
+            <h1>Role Management</h1>
+            <button id="btnAddRole" type="button" class="btn btn-primary mt-1">Add Role</button>
+        </div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Description</th>
+                    <th scope="col">Added On</th>
+                    <th scope="col">Added By</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody id="tblBodyRole">
+            </tbody>
+        </table>
+    </div>
+    <div id="RoleForm" class="container" style="display:none;">
+
+        <form>
+            <div class="form-group">
+                <input type="hidden" id="hdnRoleID" value="0" />
+                <label asp-for="RoleName" class="form-label"></label>
+                <input id="txtRoleName" class="form-control">
+                <span asp-validation-for="RoleName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="form-label"></label>
+                <input id="txtRoleDescription" type="text" class="form-control">
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <button type="button" id="btnSaveRole" class="btn btn-primary">Save</button>
+                <button type="reset" class="btn btn-warning">Reset</button>
+                <button id="btnBackToGrid" type="button" class="btn btn-dark">Back</button>
+            </div>
+        </form>
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    </div>
+</div>
+<script src="/dashboard/js/RoleManager.js"></script>
+<script>
+    $(function () {
+        $('#RoleModule').ManageRole();
+    });
+</script>

@@ -1,0 +1,61 @@
+﻿<div class="d-flex flex-column flex-shrink-0 p-3 bg-dark" style="width: 200px;height:100vh;">
+    <a href="/dashboard" class="d-flex align-items-center pb-3 mb-3 text-white text-decoration-none border-bottom">
+        <svg class="bi pe-none me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+        <span class="fs-5 fw-semibold text-white">Intern Demo</span>
+    </a>
+    <ul class="list-unstyled ps-0">
+        <li class="mb-1">
+            <button class="btn btn-toggle text-white d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+               Human Resource
+            </button>
+            <div class="collapse" id="home-collapse" style="">
+                <ul class="btn-toggle-nav list-unstyled fw-normal p-3 pt-0  small">
+                    <li><a href="/dashboard/Employee" class="text-white d-inline-flex text-decoration-none rounded">Employee List</a></li>
+                    <li><a href="/dashboard/Department" class="text-white d-inline-flex text-decoration-none rounded">Department List</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="mb-1">
+            <button class="btn btn-toggle d-inline-flex text-white align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#product-collapse" aria-expanded="false">
+                Product
+            </button>
+            <div class="collapse" id="product-collapse" style="">
+                <ul class="btn-toggle-nav list-unstyled fw-normal p-3 pt-0  small">
+                    <li><a href="/dashboard/product" class="text-white d-inline-flex text-decoration-none rounded">Product List</a></li>
+                    <li><a href="/dashboard/category" class="text-white d-inline-flex text-decoration-none rounded">CategoryList</a></li>
+                   
+                </ul>
+            </div>
+        </li>
+        
+        <li class="mb-1">
+            <button class="btn btn-toggle text-white d-inline-flex align-items-center rounded border-0" data-bs-toggle="collapse" data-bs-target="#movie-gal-collapse" aria-expanded="true">
+                Movie Gallery
+            </button>
+            <div class="collapse" id="movie-gal-collapse" style="">
+                <ul class="btn-toggle-nav list-unstyled fw-normal p-3 pt-0  small">
+                    <li><a href="/dashboard/movie" class="text-white d-inline-flex text-decoration-none rounded">Movie</a></li>
+                    <li><a href="/dashboard/people" class="text-white d-inline-flex text-decoration-none rounded">Cast & Crew</a></li>
+                    <li><a href="/dashboard/genre" class="text-white d-inline-flex text-decoration-none rounded">Genre</a></li>
+                    <li><a href="/dashboard/platform" class="text-white d-inline-flex text-decoration-none rounded">Platform</a></li>
+                </ul>
+            </div>
+        </li>
+        
+        
+        <li class="border-top my-3"></li>
+        <li class="mb-1">
+            <button class="btn btn-toggle text-white d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                Account
+            </button>
+            <div class="collapse" id="account-collapse" style="">
+                <ul class="btn-toggle-nav list-unstyled fw-normal p-3 pt-0  small">
+                    <li><a href="#" class="text-white d-inline-flex text-decoration-none rounded">New...</a></li>
+                    <li><a href="#" class="text-white d-inline-flex text-decoration-none rounded">Profile</a></li>
+                    <li><a href="#" class="text-white d-inline-flex text-decoration-none rounded">Settings</a></li>
+                    <li><a href="#" class="text-white d-inline-flex text-decoration-none rounded">Sign out</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>
